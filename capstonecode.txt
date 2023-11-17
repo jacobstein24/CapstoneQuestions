@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subcontractor Survey</title>
+</head>
+<body>
+
+<script>
+    // Function to prompt user and save response to a JSON object
+    function askQuestion(question) {
+        var userInput = prompt(question);
+        var answer = parseInt(userInput);
+
+        if (isNaN(answer)) {
+            alert("Invalid input. Please enter a valid number.");
+            return null;
+        }
+
+        return { question: question, answer: answer };
+    }
+
+    // Array to store user responses
+    var userResponses = [];
+
+    // Ask questions and store responses
+    userResponses.push(askQuestion("How many electrical subcontractors do you use?"));
+    userResponses.push(askQuestion("How many homes do you build per year, on average?"));
+    userResponses.push(askQuestion("Have you heard of ABB and its corresponding residential portfolio?"));
+    userResponses.push(askQuestion("On a scale of 1-5, please rate your satisfaction level with your current electrical supplier"));
+    userResponses.push(askQuestion("Have you experienced any recent problems with your current supplier?"));
+    userResponses.push(askQuestion("Do you have a specific brand preference regarding the brand of electrical products used in your home builds?"));
+    userResponses.push(askQuestion("Which of the following factors matters most to you regarding your electrical supplier?"));
+
+    // Generate HTML table
+    var tableHtml = "<table border='1'><tr><th>Question</th><th>Answer</th></tr>";
+    for (var i = 0; i < userResponses.length; i++) {
+        tableHtml += "<tr><td>" + userResponses[i].question + "</td><td>" + userResponses[i].answer + "</td></tr>";
+    }
+    tableHtml += "</table>";
+
+    // Create a Blob with the HTML table data
+    var blob = new Blob([tableHtml], { type: "text/html" });
+
+    // Create a link element to download the HTML file
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "survey_responses.html";
+    a.textContent = "Download Survey Responses as HTML Table";
+
+    // Append the link to the body
+    document.body.appendChild(a);
+</script>
+
+</body>
+</html>
